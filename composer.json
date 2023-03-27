@@ -1,0 +1,17 @@
+{
+    "name": "hightemp/andata.ru",
+    "autoload": {
+        "psr-4": {
+            "Hightemp\\AndataRu\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Панов Антон",
+            "email": "hightemp.unknown@gmail.com"
+        }
+    ],
+    "require": {
+        "gabordemooij/redbean": "^5.7"
+    }
+}
