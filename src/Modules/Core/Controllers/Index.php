@@ -1,9 +1,9 @@
 <?php
 
-namespace Hightemp\WappFramework\Modules\Core\Controllers;
+namespace Hightemp\AndataRu\Modules\Core\Controllers;
 
-use Hightemp\WappFramework\Modules\Core\Lib\Controllers\BaseController;
-use Hightemp\WappFramework\Modules\Core\View;
+use Hightemp\AndataRu\Modules\Core\Lib\Controllers\BaseController;
+use Hightemp\AndataRu\Modules\Core\Lib\View;
 
 class Index extends BaseController
 {
@@ -11,10 +11,8 @@ class Index extends BaseController
 
     public function fnIndexHTML()
     {
-        $aAliases = BaseController::fnGetAllAliasesLinks();
-
         View::fnAddVars([
-            "aAliases" => $aAliases
+            "sTitle" => "Очень новая статья"
         ]);
     }
 }

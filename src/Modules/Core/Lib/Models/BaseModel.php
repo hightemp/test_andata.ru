@@ -1,6 +1,6 @@
 <?php
 
-namespace Hightemp\WappFramework\Modules\Core\Lib\Models;
+namespace Hightemp\AndataRu\Modules\Core\Lib\Models;
 
 class BaseModel {
     

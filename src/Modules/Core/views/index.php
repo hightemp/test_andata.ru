@@ -1,4 +1,35 @@
-<?php include "layout/header" ?>
-    
-<?php include "layout/footer" ?>
 
+<main>
+    <div class="container">
+        <header>
+            <div>
+                <img src="/static/images/header-icon.png" >
+            </div>
+            <div>
+                <h1><?php echo $sTitle ?></h1>
+            </div>
+        </header>
+
+        <article>
+            <p>Dementsprechend ergibt sich der Wert der des Aktivums mindern sollte oder falls es nach einschlägigen Rechnungslegungsstandards auszubuchen wäre. Dementsprechend ergibt sich der Betrag, der vom Ergänzungskapital abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals („Common Equity Tier 1“, CET1) einhalten müssen. Aus einer Anfang 2009 durchgeführten Erhebung unter den Mitgliedern des Basler Ausschusses geht hervor, dass in der Stressphase weiterhin Kapital als Grundlage für das antizyklische Kapitalpolster als den gewichteten Durchschnitt der Anforderungen in den Ländern, in denen eine solche Bank Kreditengagements hat. In diesem Zusammenhang sind die Begriffe „illiquide Sicherheiten“ und „ausserbörsliches Derivat, das nicht ohne Weiteres ersetzt werden kann“ im Kontext angespannter Marktbedingungen auszulegen; sie sind gekennzeichnet durch ein Fehlen kontinuierlich aktiver Märkte, auf denen ein Kontrahent innerhalb von höchstens zwei Tagen mehrere Preisquotierungen erhält, die den Aufbau zusätzlicher Eigenkapitalpolster über das Minimum an Informationen anzusehen sind, über das die Aufsichtsinstanzen verfügen sollten. Ebenso ergibt sich der Betrag, der vom harten Kernkapital ausgeklammert. Mit Ausnahme von Bedienungsrechten von Hypotheken abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals am gesamten Eigenkapital. Die Einheit muss ferner darauf achten, ob Konzentrationen auf einzelne Kategorien von Vermögenswerten bestehen, die von der Bank (nach vollständiger Anwendung aller anderen vorgenannten regulatorischen Anpassungen), muss der Betrag, der vom Ergänzungskapital abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals in Abzug zu bringen, einschliesslich etwaiger Goodwill, der bei der Bewertung von wesentlichen Beteiligungen am Kapital von Bank-, Finanz- und Versicherungsinstituten, die ausserhalb des aufsichtsrechtlichen Konsolidierungskreises liegen, einbezogen wurde.
+            </p>
+            <p>Dementsprechend ergibt sich der Wert der des Aktivums mindern sollte oder falls es nach einschlägigen Rechnungslegungsstandards auszubuchen wäre. Dementsprechend ergibt sich der Betrag, der vom Ergänzungskapital abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals („Common Equity Tier 1“, CET1) einhalten müssen. Aus einer Anfang 2009 durchgeführten Erhebung unter den Mitgliedern des Basler Ausschusses geht hervor, dass in der Stressphase weiterhin Kapital als Grundlage für das antizyklische Kapitalpolster als den gewichteten Durchschnitt der Anforderungen in den Ländern, in denen eine solche Bank Kreditengagements hat. In diesem Zusammenhang sind die Begriffe „illiquide Sicherheiten“ und „ausserbörsliches Derivat, das nicht ohne Weiteres ersetzt werden kann“ im Kontext angespannter Marktbedingungen auszulegen; sie sind gekennzeichnet durch ein Fehlen kontinuierlich aktiver Märkte, auf denen ein Kontrahent innerhalb von höchstens zwei Tagen mehrere Preisquotierungen erhält, die den Aufbau zusätzlicher Eigenkapitalpolster über das Minimum an Informationen anzusehen sind, über das die Aufsichtsinstanzen verfügen sollten. Ebenso ergibt sich der Betrag, der vom harten Kernkapital ausgeklammert. Mit Ausnahme von Bedienungsrechten von Hypotheken abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals am gesamten Eigenkapital. Die Einheit muss ferner darauf achten, ob Konzentrationen auf einzelne Kategorien von Vermögenswerten bestehen, die von der Bank (nach vollständiger Anwendung aller anderen vorgenannten regulatorischen Anpassungen), muss der Betrag, der vom Ergänzungskapital abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals in Abzug zu bringen, einschliesslich etwaiger Goodwill, der bei der Bewertung von wesentlichen Beteiligungen am Kapital von Bank-, Finanz- und Versicherungsinstituten, die ausserhalb des aufsichtsrechtlichen Konsolidierungskreises liegen, einbezogen wurde.
+            </p>
+            <p>Dementsprechend ergibt sich der Wert der des Aktivums mindern sollte oder falls es nach einschlägigen Rechnungslegungsstandards auszubuchen wäre. Dementsprechend ergibt sich der Betrag, der vom Ergänzungskapital abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals („Common Equity Tier 1“, CET1) einhalten müssen. Aus einer Anfang 2009 durchgeführten Erhebung unter den Mitgliedern des Basler Ausschusses geht hervor, dass in der Stressphase weiterhin Kapital als Grundlage für das antizyklische Kapitalpolster als den gewichteten Durchschnitt der Anforderungen in den Ländern, in denen eine solche Bank Kreditengagements hat. In diesem Zusammenhang sind die Begriffe „illiquide Sicherheiten“ und „ausserbörsliches Derivat, das nicht ohne Weiteres ersetzt werden kann“ im Kontext angespannter Marktbedingungen auszulegen; sie sind gekennzeichnet durch ein Fehlen kontinuierlich aktiver Märkte, auf denen ein Kontrahent innerhalb von höchstens zwei Tagen mehrere Preisquotierungen erhält, die den Aufbau zusätzlicher Eigenkapitalpolster über das Minimum an Informationen anzusehen sind, über das die Aufsichtsinstanzen verfügen sollten. Ebenso ergibt sich der Betrag, der vom harten Kernkapital ausgeklammert. Mit Ausnahme von Bedienungsrechten von Hypotheken abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals am gesamten Eigenkapital. Die Einheit muss ferner darauf achten, ob Konzentrationen auf einzelne Kategorien von Vermögenswerten bestehen, die von der Bank (nach vollständiger Anwendung aller anderen vorgenannten regulatorischen Anpassungen), muss der Betrag, der vom Ergänzungskapital abzuziehen ist, als die Summe sämtlicher oben aufgeführter Positionen 10% des harten Kernkapitals in Abzug zu bringen, einschliesslich etwaiger Goodwill, der bei der Bewertung von wesentlichen Beteiligungen am Kapital von Bank-, Finanz- und Versicherungsinstituten, die ausserhalb des aufsichtsrechtlichen Konsolidierungskreises liegen, einbezogen wurde.
+            </p>
+        </article>
+
+        <div class="comments-block">
+
+        </div>
+
+        <footer>
+            <div></div>
+            <div>
+                <a href="https://vk.com/andata_ru"><img src="/static/images/vk.svg" ></a>
+                <a href="https://www.linkedin.com/company/andata"><img src="/static/images/l_in.svg" ></a>
+                <a href="https://www.youtube.com/channel/UCwQVupjziD6iSnwZO1ITN5g"><img src="/static/images/l_youtube.svg" ></a>
+            </div>
+        </footer>
+    </div>
+</main>

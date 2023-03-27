@@ -12,6 +12,7 @@
         }
     ],
     "require": {
-        "gabordemooij/redbean": "^5.7"
+        "gabordemooij/redbean": "^5.7",
+        "league/url": "^3.3"
     }
 }

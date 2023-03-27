@@ -1,10 +1,10 @@
 <?php
 
-namespace Hightemp\WappFramework\Modules\Core\Lib;
+namespace Hightemp\AndataRu\Modules\Core\Lib;
 
-use Hightemp\WappFramework\Modules\Core\Helpers\Utils;
-use Hightemp\WappFramework\Modules\Core\Lib\View\Helpers\Vars;
-use Hightemp\WappFramework\Project;
+use Hightemp\AndataRu\Modules\Core\Helpers\Utils;
+use Hightemp\AndataRu\Modules\Core\Lib\View\Helpers\Vars;
+use Hightemp\AndataRu\Project;
 
 class View
 {
@@ -27,36 +27,20 @@ class View
     /** @var string $sHTMLHeader Это код html->head блока */
     public static $sHTMLHeader = '';
 
-    public static $aHelpers = [];
-
-    /** 
-     * @var string[][] $aTemplates список классов соотнесенных с шаблонами 
-     *  
-     * ```php
-     * [
-     *      Controller::class => [
-     *          "fnIndexHTML" => ['content_page.php', 'layout.php']
-     *      ]
-     * ]
-     * ``` 
-     **/
-    public static $aTemplates = [];
-
-    public static function fnGetModuleRelPath($sExtPath="")
+    public static function fnAddVars($aVars)
     {
-        return Utils::fnGetRelPathForClassModule(static::class, "/".$sExtPath);
+        self::$aVars = array_merge(self::$aVars, $aVars);
     }
-
-    public static function fnGetModuleGlobalPath($sExtPath="")
-    {
-        return Utils::fnGetGlobalPathForClassModule(static::class, "/".$sExtPath);
-    }
-
-    public static function fnCleanVars()
-    {
-        self::$aVars = [];
-    }
-
+    
+    /**
+     * Метод добавлеят переменные для шаблона перед его использованием
+     * 
+     * - sHTMLHeader - Дополнительные тэги в head
+     * - sStaticPath - Путь к статике
+     * - sTitle - Заголовок
+     * 
+     * @return void
+     */
     public static function fnPrepareVars()
     {
         self::$aVars['sHTMLHeader'] = self::$sHTMLHeader;
@@ -64,106 +48,19 @@ class View
         isset(self::$aVars['sTitle']) ?: self::$aVars['sTitle'] = '';
     }
 
-    public static function fnPrepareContentVar($sContentTemplate=null)
+    public static function fnIsTemplate($sTemplatePath)
     {
-        isset(self::$aVars['sContent']) ?: self::$aVars['sContent'] = static::fnRenderContent($sContentTemplate);
+        return is_file(static::fnGetTemplatesPath($sTemplatePath));
     }
-
-    public static function fnAddVars($aVars)
-    {
-        self::$aVars = array_merge(self::$aVars, $aVars);
-    }
-
-    public static function fnPrepareHTMLHeader()
-    {
-        if (static::fnIsTemplate(static::$sHeaderTemplate)) {
-            $sT = static::fnRenderTemplate(static::$sHeaderTemplate);
-            self::$sHTMLHeader .= $sT;
-        }
-    }
-
-    public static function fnAddHTMLHeader($sHTML)
-    {
-        self::$sHTMLHeader += $sHTML;
-    }
-
-    public static function fnSetParams($aVarsToAdd=[], $sContentTemplate=null, $sLayoutTemplate=null)
-    {
-        if ($aVarsToAdd) static::fnAddVars($aVarsToAdd);
-        if ($sContentTemplate) static::$sContentTemplate = $sContentTemplate;
-        if ($sLayoutTemplate) static::$sLayoutTemplate = $sLayoutTemplate;
-    }
-
-    public static function fnAddHeaderFavicon($sRelFilePath="favicon.png", $sType="png")
-    {
-        static::fnAddHTMLHeader(static::fnRenderLinkFavicon($sRelFilePath, $sType));
-    }
-
-    public static function fnRenderLinkFavicon($sRelFilePath="", $sType=null)
-    {
-        if (is_null($sType)) $sType = "x-icon";
-        $sRelFilePath = static::fnGetImagesPath("/".$sRelFilePath);
-        $sHTML = <<<EOF
-<link rel="icon" type="image/{$sType}" href="{$sRelFilePath}">
-EOF;
-        return $sHTML;
-    }
-
-    public static function fnGetImagesPath($sExtPath="")
-    {
-        return static::fnGetModuleRelPath(static::STATIC_IMAGES_PATH.$sExtPath);
-    }
-
-    public static function fnGetCSSPath($sExtPath="")
-    {
-        return static::fnGetModuleRelPath(static::STATIC_CSS_PATH.$sExtPath);
-    }
-
-    public static function fnAddHeaderCSS($sRelFilePath)
-    {
-        static::fnAddHTMLHeader(static::fnRenderLinkStylesheet($sRelFilePath));
-    }
-
-    public static function fnRenderLinkStylesheet($sRelFilePath)
-    {
-        $sRelFilePath = static::fnGetCSSPath("/".$sRelFilePath);
-        $sHTML = <<<EOF
-<link rel="stylesheet" href="{$sRelFilePath}">\n
-EOF;
-        return $sHTML;
-    }
-
-    public static function fnGetJSPath($sExtPath="")
-    {
-        return static::fnGetModuleRelPath(static::STATIC_JS_PATH.$sExtPath);
-    }
-
-    public static function fnAddHeaderJS($sRelFilePath)
-    {
-        static::fnAddHTMLHeader(static::fnRenderScript($sRelFilePath));
-    }
-
-    public static function fnRenderScript($sRelFilePath)
-    {
-        $sRelFilePath = static::fnGetJSPath("/".$sRelFilePath);
-        $sHTML = <<<EOF
-<script src="{$sRelFilePath}"></script>\n
-EOF;
-        return $sHTML;
-    }
-
-    public static function fnRender()
-    {
-        static::fnPrepareVars();
-        return static::fnRenderLayout();
-    }
-
-    public static function fnRenderLayout($aVars=[])
-    {
-        return static::fnRenderTemplate(static::$sLayoutTemplate, $aVars);
-    }
-
-    public static function fnRenderContent($sContentTemplate=null, $aVars=[])
+    
+    /**
+     * Метод рендрит шаблоны для переменной sContent, которая вставляется в layout шаблона
+     *
+     * @param  string $sContentTemplate Файл шаблона
+     * @param  string[] $aVars Переменные шаблона
+     * @return string|false
+     */
+    public static function fnRenderContent(string $sContentTemplate=null, array $aVars=[]): string
     {
         if (is_null($sContentTemplate)) {
             if (static::fnIsTemplate(static::$sContentTemplate)) {
@@ -175,15 +72,26 @@ EOF;
             }
         }
     }
+    
+    /**
+     * fnPrepareContentVar
+     *
+     * @param  mixed $sContentTemplate
+     * @return void
+     */
+    public static function fnPrepareContentVar($sContentTemplate=null)
+    {
+        isset(self::$aVars['sContent']) ?: self::$aVars['sContent'] = static::fnRenderContent($sContentTemplate);
+    }
 
+    public static function fnGetModuleGlobalPath($sExtPath="")
+    {
+        return dirname(__DIR__)."/".$sExtPath;
+    }
+    
     public static function fnGetTemplatesPath($sExtPath="")
     {
         return static::fnGetModuleGlobalPath(static::TEMPLATES_PATH."/".ltrim($sExtPath, "/"));
-    }
-
-    public static function fnIsTemplate($sTemplatePath)
-    {
-        return is_file(static::fnGetTemplatesPath($sTemplatePath));
     }
 
     public static function fnRenderTemplate($sTemplatePath, $aVars=[])
@@ -198,5 +106,16 @@ EOF;
             require_once(static::fnGetTemplatesPath($sTemplatePath));
         }
         return ob_get_clean();
+    }
+
+    public static function fnRenderLayout($aVars=[])
+    {
+        return static::fnRenderTemplate(static::$sLayoutTemplate, $aVars);
+    }
+
+    public static function fnRender()
+    {
+        static::fnPrepareVars();
+        return static::fnRenderLayout();
     }
 }
