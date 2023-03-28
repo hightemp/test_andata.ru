@@ -4,6 +4,7 @@ namespace Hightemp\AndataRu\Modules\Core\Lib;
 
 use Hightemp\AndataRu\Modules\Core\Lib\Logger;
 use Hightemp\AndataRu\Modules\Core\Lib\ProjectLogger;
+use Hightemp\AndataRu\Modules\Core\Models\Comments;
 use RedBeanPHP\Facade as R;
 
 class BaseProject 
@@ -53,6 +54,7 @@ class BaseProject
     {
         static::fnPreload();
         static::fnInitLogger();
+        static::fnInitDatabase();
 
         Logger::fnWriteMessage("==START==");
 
@@ -66,8 +68,7 @@ class BaseProject
 
     public static function fnInitDatabase()
     {
-        R::setup('sqlite:./db.sqlite');
-
+        R::setup('sqlite:'.DB_PATH.'/db.db');
         if(!R::testConnection()) throw new \Exception("<h1>No db connection</h1>");
     }
 

@@ -8,7 +8,7 @@ use Hightemp\AndataRu\Modules\Core\Models\Comments;
 class CommentsService extends BaseService {
 
     function fnSaveComment(array $aFields): void {
-        if (empty($aFields['name'])) {
+        if (empty($aFields['username'])) {
             throw new \Exception("Поле name должно быть заполено");
         }
         if (empty($aFields['email'])) {
@@ -21,7 +21,7 @@ class CommentsService extends BaseService {
             throw new \Exception("Поле name должно быть заполено");
         }
 
-        if (mb_strlen($aFields['name'])<4) {
+        if (mb_strlen($aFields['username'])<4) {
             throw new \Exception("Поле name должно содержать минимум 4 символа");
         }
         if (mb_strlen($aFields['email'])<4) {
@@ -36,5 +36,10 @@ class CommentsService extends BaseService {
 
         $oModel = new Comments();
         $oModel->fnSave($aFields);
+    }
+
+    function fnGetComments(): array {
+        $oModel = new Comments();
+        return $oModel->fnGetAll();
     }
 }

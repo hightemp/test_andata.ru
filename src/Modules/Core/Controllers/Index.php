@@ -22,10 +22,21 @@ class Index extends BaseController
         $oService = new CommentsService();
         try {
             $oService->fnSaveComment($this->oRequest->aPost);
+            return [
+                "code" => "success",
+                "message" => "Комментарий сохранен"
+            ];
         } catch (\Exception $oE) {
             return [
-                "error" => $oE->getMessage()
+                "code" => "error",
+                "message" => $oE->getMessage()
             ];
         }
+    }
+
+    public function fnGetCommentsJSON()
+    {
+        $oService = new CommentsService();
+        return $oService->fnGetComments();
     }
 }

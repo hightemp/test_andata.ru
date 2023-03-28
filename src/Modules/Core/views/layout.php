@@ -14,5 +14,8 @@
 </head>
 <body>
     <?php echo $sContent ?>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <script src="/static/assets/app.js"></script>
 </body>
 </html>

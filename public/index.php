@@ -3,6 +3,7 @@
 define('ROOT_PATH', dirname(__DIR__));
 define('PUBLIC_PATH', __DIR__);
 define('LOGS_PATH', dirname(__DIR__)."/logs");
+define('DB_PATH', dirname(__DIR__)."/db");
 define('DEBUG', getenv('DEBUG'));
 
 if (defined('DEBUG') && DEBUG) {
