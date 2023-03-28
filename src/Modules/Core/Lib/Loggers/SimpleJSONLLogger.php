@@ -28,7 +28,7 @@ class SimpleJSONLLogger extends BaseLogger
      */
     public static function fnBuild()
     {
-        $sLoggerPath = ROOT_PATH."";
+        $sLoggerPath = LOGS_PATH."";
         $sFileName = time().".jsonl";
         $iLifeTime = 1000;
 
@@ -47,14 +47,14 @@ class SimpleJSONLLogger extends BaseLogger
 
     public static function fnGetFiles()
     {
-        $sLoggerFilePathMask = static::fnPrepareFilePath("*");
+        $sLoggerFilePathMask = static::fnPrepareFilePath("*.jsonl");
 
         return glob($sLoggerFilePathMask);
     }
 
     public static function fnCleanFiles()
     {
-        $sLoggerFilePathMask = static::fnPrepareFilePath("*");
+        $sLoggerFilePathMask = static::fnPrepareFilePath("*.jsonl");
 
         shell_exec("rm -f {$sLoggerFilePathMask}");
     }
