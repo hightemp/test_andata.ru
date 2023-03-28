@@ -8,6 +8,7 @@ use Hightemp\AndataRu\Modules\Core\Helpers\Utils;
 
 Project::fnInit();
 
+die("123");
 try {
     $oRequest = Request::fnBuild();
     $oResponse = BaseController::fnFindAndExecuteMethod($oRequest);
