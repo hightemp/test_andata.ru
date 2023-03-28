@@ -9,15 +9,27 @@ use Hightemp\AndataRu\Modules\Core\Services\CommentsService;
 class Index extends BaseController
 {
     public static string $sDefaultViewClass = View::class;
-
-    public function fnIndexHTML()
+    
+    /**
+     * Метод для отображения стратовой страницы
+     *
+     * @return mixed
+     */
+    public function fnIndexHTML(): mixed
     {
         View::fnAddVars([
             "sTitle" => "Очень новая статья"
         ]);
-    }
 
-    public function fnPostCommentJSON()
+        return [];
+    }
+    
+    /**
+     * Метод публикации комментария
+     *
+     * @return mixed
+     */
+    public function fnPostCommentJSON(): mixed
     {
         $oService = new CommentsService();
         try {
@@ -34,8 +46,13 @@ class Index extends BaseController
             ];
         }
     }
-
-    public function fnGetCommentsJSON()
+    
+    /**
+     * Метод для получения списка комментариев
+     *
+     * @return mixed
+     */
+    public function fnGetCommentsJSON(): mixed
     {
         $oService = new CommentsService();
         return $oService->fnGetComments();

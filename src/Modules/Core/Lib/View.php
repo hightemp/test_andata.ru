@@ -14,20 +14,26 @@ class View
 
     const TEMPLATES_PATH = "views";
 
-    const THEME = "";
+    /** @var string $sCurrentViewClass Класс шаблонизатора для прокидывания в шаблон */
+    public static ?string $sCurrentViewClass = null;
 
-    public static $sCurrentViewClass = null;
-
-    public static $sLayoutTemplate = "layout.php";
-    public static $sContentTemplate = "index.php";
-    public static $sHeaderTemplate = "header.php";
+    /** @var string $sLayoutTemplate Шаблон вывода по умолчанию */
+    public static string $sLayoutTemplate = "layout.php";
+    /** @var string $sContentTemplate Шаблон контента по умолчанию */
+    public static string $sContentTemplate = "index.php";
 
     /** @var string[] $aVars Список переменных. Ключ - значение */
-    public static $aVars = [];
+    public static array $aVars = [];
     /** @var string $sHTMLHeader Это код html->head блока */
-    public static $sHTMLHeader = '';
-
-    public static function fnAddVars($aVars)
+    public static string $sHTMLHeader = '';
+    
+    /**
+     * Добавление переменных
+     *
+     * @param  array $aVars
+     * @return void
+     */
+    public static function fnAddVars(array $aVars): void
     {
         self::$aVars = array_merge(self::$aVars, $aVars);
     }
@@ -41,14 +47,20 @@ class View
      * 
      * @return void
      */
-    public static function fnPrepareVars()
+    public static function fnPrepareVars(): void
     {
         self::$aVars['sHTMLHeader'] = self::$sHTMLHeader;
         self::$aVars['sStaticPath'] = static::STATIC_PATH;
         isset(self::$aVars['sTitle']) ?: self::$aVars['sTitle'] = '';
     }
-
-    public static function fnIsTemplate($sTemplatePath)
+    
+    /**
+     * Проверка существования шаблона
+     *
+     * @param  string $sTemplatePath
+     * @return bool
+     */
+    public static function fnIsTemplate(string $sTemplatePath): bool
     {
         return is_file(static::fnGetTemplatesPath($sTemplatePath));
     }
@@ -74,27 +86,46 @@ class View
     }
     
     /**
-     * fnPrepareContentVar
+     * Подготовка переменной sContent которая рендриться в layout
      *
-     * @param  mixed $sContentTemplate
+     * @param  string|null $sContentTemplate
      * @return void
      */
-    public static function fnPrepareContentVar($sContentTemplate=null)
+    public static function fnPrepareContentVar(?string $sContentTemplate=null): void
     {
         isset(self::$aVars['sContent']) ?: self::$aVars['sContent'] = static::fnRenderContent($sContentTemplate);
     }
-
-    public static function fnGetModuleGlobalPath($sExtPath="")
+    
+    /**
+     * Получение пути модуля
+     *
+     * @param  string $sExtPath
+     * @return string
+     */
+    public static function fnGetModuleGlobalPath(string $sExtPath=""): string
     {
         return dirname(__DIR__)."/".$sExtPath;
     }
-    
-    public static function fnGetTemplatesPath($sExtPath="")
+        
+    /**
+     * Получение пути к шаблонам
+     *
+     * @param  string $sExtPath
+     * @return string
+     */
+    public static function fnGetTemplatesPath(string $sExtPath=""): string
     {
         return static::fnGetModuleGlobalPath(static::TEMPLATES_PATH."/".ltrim($sExtPath, "/"));
     }
-
-    public static function fnRenderTemplate($sTemplatePath, $aVars=[])
+    
+    /**
+     * Метод рендринга шаблона
+     *
+     * @param  string $sTemplatePath
+     * @param  array $aVars
+     * @return mixed
+     */
+    public static function fnRenderTemplate(string $sTemplatePath, array $aVars=[]): mixed
     {
         static::$sCurrentViewClass = static::class;
         $aVars['sCurrentViewClass'] = static::$sCurrentViewClass;
@@ -107,13 +138,24 @@ class View
         }
         return ob_get_clean();
     }
-
-    public static function fnRenderLayout($aVars=[])
+    
+    /**
+     * Метод рендринга layout
+     *
+     * @param  array $aVars
+     * @return mixed
+     */
+    public static function fnRenderLayout(array $aVars=[]): mixed
     {
         return static::fnRenderTemplate(static::$sLayoutTemplate, $aVars);
     }
-
-    public static function fnRender()
+    
+    /**
+     * Метод рендринга
+     *
+     * @return mixed
+     */
+    public static function fnRender(): mixed
     {
         static::fnPrepareVars();
         return static::fnRenderLayout();

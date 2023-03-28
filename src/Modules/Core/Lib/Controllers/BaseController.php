@@ -18,7 +18,6 @@ class BaseController
     const METHOD_KEY = "method";
     const CONTROLLER_KEY = "controller";
     const MODULE_KEY = "module";
-    const ALIAS_KEY = "alias";
 
     const DEFAULT_MODULE = "Core";
 
@@ -26,7 +25,20 @@ class BaseController
     const CC_FORWARD_301 = 301;
     const CP_FORWARD = "forward";
 
-    public static $aAvailableMethodTypes = ['JSON', 'HTML'];
+    /** 
+     * @var array $aDefaultTemplates Список шаблонов по умолчанию 
+     * 
+     * ```php
+     * [
+     *      "fnIndexHTML" => [
+     *          'content.php',
+     *          'layout.php',
+     *          'title'
+     *      ]
+     * ]
+     * ```
+     * */
+    public static array $aDefaultTemplates = [];
 
     /** @var Request|null $oRequest Глобальный запрос */
     public static ?Request $oGlobalRequest = null;
@@ -39,32 +51,11 @@ class BaseController
 
     /** @var string[] $aPreloadViews список View для предварительной загрузки head html и переменных */
     public static $aPreloadViews = [];
-    public static $aMiddlewaresBefore = [];
-    public static $aMiddlewaresAfter = [];
 
     public function __construct($oRequest=new Request(), $sViewClass=null)
     {
         $this->oRequest = $oRequest;
         $this->sViewClass = is_null($sViewClass) ? static::$sDefaultViewClass : $sViewClass;
-    }
-
-    public static function fnGetMethodValidatorRegExp()
-    {
-        $sReg = '/^fn(.*)('.join('|', static::$aAvailableMethodTypes).')$/';
-        return $sReg;
-    }
-
-    public static function fnIsMethodValid($sMethod)
-    {
-        $sReg = static::fnGetMethodValidatorRegExp();
-        return preg_match($sReg, $sMethod);
-    }
-
-    public static function fnGetValidMethods()
-    {
-        $aMethods = get_class_methods(static::class);
-
-        return array_filter($aMethods, function($sI) { return static::fnIsMethodValid($sI); });
     }
     
     /**
@@ -103,7 +94,7 @@ class BaseController
      * @param  string $sMethod
      * @return string[] `['content.php','layout.php','title']`
      */
-    public static function fnGetTemplate($sViewClass, $sControllerClass, $sMethod, $bFullPath=false)
+    public static function fnGetTemplate(string $sViewClass, string $sControllerClass, string $sMethod, bool $bFullPath=false)
     {
         $aTemplates = null;
 
@@ -138,14 +129,14 @@ class BaseController
     }
     
     /**
-     * fnPrepareAllViewsForController
+     * Метод для подготовки шаблонизатора для контроллера
      *
-     * @param  mixed $oController
-     * @param  mixed $sMethod
-     * @param  mixed $aControllers
+     * @param  BaseController $oController
+     * @param  string $sMethod
+     * @param  array $aControllers
      * @return void
      */
-    public static function fnPrepareAllViewsForController($oController, $sMethod, $aControllers=null)
+    public static function fnPrepareAllViewsForController(BaseController $oController, string $sMethod, array $aControllers=null): void
     {
         if (is_null($aControllers)) {
             $aControllers = static::fnGetControllersByModules();
@@ -188,15 +179,18 @@ class BaseController
     }
     
     /**
-     * fnGetResponseFromController
+     * Метод для получения ответа от метода контроллера взятого из алиаса
+     * 
+     * Если метод содержит HTML в конце возвращается HTMLResponse
+     * Если метод содержит JSON в конце возвращается JSONResponse
      *
-     * @param  mixed $aAlias
-     * @param  mixed $oRequest
-     * @return Response
+     * @param  array $aAlias
+     * @param  Request $oRequest
+     * @return BaseResponse
      */
-    public static function fnGetResponseFromController( $aAlias, $oRequest)
+    public static function fnGetResponseFromController(array $aAlias, Request $oRequest): ?BaseResponse
     {
-        if (!$aAlias) return;
+        if (!$aAlias) return null;
 
         isset($aAlias[0]) ?: $aAlias[0]='';
         isset($aAlias[1]) ?: $aAlias[1]='';
@@ -245,7 +239,7 @@ class BaseController
         $sCurrentController = isset($oRequest->aGet[static::CONTROLLER_KEY]) ? $oRequest->aGet[static::CONTROLLER_KEY] : '';
 
         $aURI = parse_url($oRequest->aServer['REQUEST_URI']);
-        $sCurrentAlias = isset($oRequest->aGet[static::ALIAS_KEY]) ? $oRequest->aGet[static::ALIAS_KEY] : $aURI['path'];
+        $sCurrentAlias = $aURI['path'];
         $bIsRoot = trim($sCurrentAlias, "/") == "";
 
         if (!$oResponse) {
