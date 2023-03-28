@@ -6,9 +6,9 @@ use Hightemp\AndataRu\Modules\Core\Lib\Responses\BaseResponse;
 
 class JSON extends BaseResponse
 {
-    public $sContentType = "application/json";
+    public string $sContentType = "application/json";
 
-    public function fnSetContent($mContent)
+    public function fnSetContent(mixed $mContent): void
     {
         $this->sContent = json_encode($mContent, JSON_UNESCAPED_UNICODE);
     }

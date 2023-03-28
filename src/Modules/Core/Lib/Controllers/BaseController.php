@@ -10,6 +10,9 @@ use Hightemp\AndataRu\Modules\Core\Lib\Responses\HTML as HTMLResponse;
 use Hightemp\AndataRu\Modules\Core\Lib\Responses\JSON as JSONResponse;
 use Hightemp\AndataRu\Modules\Core\Lib\Responses\NotFound as NotFoundResponse;
 
+/**
+ * Класс базового контроллера
+ */
 class BaseController
 {
     const METHOD_KEY = "method";
@@ -25,10 +28,14 @@ class BaseController
 
     public static $aAvailableMethodTypes = ['JSON', 'HTML'];
 
-    public static $oGlobalRequest = null;
-    public $oRequest = null;
-    public $sViewClass = null;
-    public static $sDefaultViewClass = View::class;
+    /** @var Request|null $oRequest Глобальный запрос */
+    public static ?Request $oGlobalRequest = null;
+    /** @var Request|null $oRequest Запрос переданный контроллеру */
+    public ?Request $oRequest = null;
+    /** @var string|null $sViewClass Класс шаблонизатора для отображения, по умолчанию используется $sDefaultViewClass */
+    public ?string $sViewClass = null;
+    /** @var string $sDefaultViewClass Класс шаблонизатора по умолчанию */
+    public static string $sDefaultViewClass = View::class;
 
     /** @var string[] $aPreloadViews список View для предварительной загрузки head html и переменных */
     public static $aPreloadViews = [];
