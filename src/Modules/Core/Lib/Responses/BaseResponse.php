@@ -2,24 +2,49 @@
 
 namespace Hightemp\AndataRu\Modules\Core\Lib\Responses;
 
+/**
+ * Базвый класс ответа сервера
+ */
 class BaseResponse
-{
-    public $sContent = "";
-    public $aHeaders = [];
-    public $iCode = 200;
-    public $sContentType = "text/plain";
-
-    public function fnSetContent($sContent)
+{    
+    /** @var string $sContent Содержимое ответа */
+    public string $sContent = "";
+    /** @var array $aHeaders Заголовки */
+    public array $aHeaders = [];
+    /** @var int $iCode Код ответа */
+    public int $iCode = 200;
+    /** @var string $sContentType Содержимое заголовка Content-Type */
+    public string $sContentType = "text/plain";
+    
+    /**
+     * Метод устанавливает содержимое ответа
+     *
+     * @param  string $sContent
+     * @return void
+     */
+    public function fnSetContent(string $sContent): void
     {
         $this->sContent = $sContent;
     }
-
-    public function fnGetContent()
+    
+    /**
+     * Метод возвращает содержимое ответа
+     *
+     * @return string
+     */
+    public function fnGetContent(): string
     {
         return $this->sContent;
     }
-
-    public function fnPrintOutputAndExit()
+    
+    /**
+     * Метод выставляет код ответа, заголовок `Content-Type`, 
+     * так же дополнительные заголовки из `$this->aHeaders`
+     * и возвращает содержимое ответа через `die`
+     *
+     * @return void
+     */
+    public function fnPrintOutputAndExit(): void
     {
         if ($this->iCode) {
             http_response_code($this->iCode);
