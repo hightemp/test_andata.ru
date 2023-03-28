@@ -2,16 +2,14 @@
 
 namespace Hightemp\AndataRu\Modules\Core\Lib;
 
-class ProjectLogger {
+use Hightemp\AndataRu\Project;
 
-    public static $aLoggers = [
-        
-    ];
+class Logger {
 
     public static $aLoggersIntsances = [];
 
     public static function fnInit() {
-        foreach (static::$aLoggers as $sLoggerClass) {
+        foreach (Project::$aLoggers as $sLoggerClass) {
             static::$aLoggersIntsances[] = $sLoggerClass::fnBuild();
         }
     }

@@ -2,6 +2,11 @@
 
 namespace Hightemp\AndataRu\Modules\Core\Models;
 
-class Comments extends BaseModel {
+use Hightemp\AndataRu\Modules\Core\Lib\Models\BaseModel;
+use RedBeanPHP\Facade as R;
 
+class Comments extends BaseModel {
+    function fnSave($aFields) {
+        
+    }
 }

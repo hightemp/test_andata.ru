@@ -2,7 +2,9 @@
 
 namespace Hightemp\AndataRu\Modules\Core\Lib;
 
-use Hightemp\AndataRu\Logger;
+use Hightemp\AndataRu\Modules\Core\Lib\Logger;
+use Hightemp\AndataRu\Modules\Core\Lib\ProjectLogger;
+use RedBeanPHP\Facade as R;
 
 class BaseProject 
 {
@@ -10,6 +12,10 @@ class BaseProject
     public static $sProjectRootPath = __DIR__;
 
     public static $mShutdownFunction = [self::class,'fnShutdownFunction'];
+
+    public static $aLoggers = [
+
+    ];
 
     /** 
      * @var array $aPreload Предварительная загрузка файлов, выполнение методов модулей
@@ -55,7 +61,14 @@ class BaseProject
 
     public static function fnInitLogger()
     {
-        
+        Logger::fnInit();
+    }
+
+    public static function fnInitDatabase()
+    {
+        R::setup('sqlite:./db.sqlite');
+
+        if(!R::testConnection()) throw new \Exception("<h1>No db connection</h1>");
     }
 
     public static function fnRegisterShutdownFunction()
