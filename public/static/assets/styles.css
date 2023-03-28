@@ -37,7 +37,7 @@ header > div:last-child {
 
 footer {
     margin-top: 50px;
-    
+
     height: 200px;
     background: #444;
 
@@ -60,3 +60,18 @@ footer > div:last-child img {
     width: 36px;
 }
 
+.comments-block ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.comments-block ul li:first-child {
+    border-top: #eee 1px solid;
+}
+.comments-block ul li {
+    border-bottom: #eee 1px solid;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

@@ -3,8 +3,6 @@
 namespace Hightemp\AndataRu\Modules\Core\Lib;
 
 use Hightemp\AndataRu\Modules\Core\Lib\Logger;
-use Hightemp\AndataRu\Modules\Core\Lib\ProjectLogger;
-use Hightemp\AndataRu\Modules\Core\Models\Comments;
 use RedBeanPHP\Facade as R;
 
 class BaseProject 
@@ -42,12 +40,6 @@ class BaseProject
     ];
 
     public static $aPreloadViews = [
-    ];
-
-    public static $aModels = [
-    ];
-
-    public static $aMiddlewares = [
     ];
 
     public static function fnInit()
@@ -101,12 +93,9 @@ class BaseProject
     {
         static::$aModules = array_merge(static::$aModules, (array) $sClass);
         static::$aControllers = array_merge(static::$aControllers, (array) $sClass::$aControllers);
-        static::$aModels = array_merge(static::$aModels, (array) $sClass::$aModels);
 
         static::$aModules = array_unique(static::$aModules);
         static::$aControllers = array_unique(static::$aControllers);
-        // static::$aPreloadViews = array_unique(static::$aPreloadViews);
-        static::$aModels = array_unique(static::$aModels);
     }
 
     public static function fnShutdownFunction()

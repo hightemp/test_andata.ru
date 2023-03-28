@@ -12,18 +12,17 @@ class Comments extends BaseModel {
      * Метод сохраняет комментарий в БД
      *
      * @param  array $aFields
-     * @return void
+     * @return array
      */
-    function fnSave(array $aFields): void {
+    function fnSave(array $aFields): array {
         $oComment = R::dispense('comments');
+        $aFields["published"] = date('Y-m-d H:i:s');
         $oComment->import($aFields);
         R::store($oComment);
+        return $aFields;
     }
 
     function fnGetAll(): array {
-        if (R::inspect('comments')['type'] !== 'table') {
-            return [];
-        }
         $aRows = R::findAll('comments');
         if (!$aRows) return [];
         return R::exportAll($aRows);

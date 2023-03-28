@@ -24,39 +24,55 @@
                 <h2>Комментарии</h2>
                 <ul>
                     <li v-for="comment in comments" :key="comment.id">
-                        <h3>{{ comment.name }}</h3>
-                        <p>Email: {{ comment.email }}</p>
+                        <h3>{{ comment.username }}</h3>
+                        <p>
+                            <b>Опубликовано:</b> {{ comment.published }}<br>
+                            <b>Email:</b> {{ comment.email }}
+                        </p>
                         <h4>{{ comment.title }}</h4>
                         <p>{{ comment.comment }}</p>
                     </li>
                 </ul>
             </div>
 
-            <form>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Имя пользователя</label>
-                            <input type="text" class="form-control" id="username" name="username" v-model="username">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" v-model="email">
-                        </div>
+            <div class="alert alert-danger" role="alert" v-if="error">
+                {{ error }}
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Имя пользователя</label>
+                        <input type="text" class="form-control" id="username" name="username" v-model="username"
+                            :class="{ 'is-invalid': errors.username }" />
+                        <div class="invalid-feedback">{{ errors.username }}</div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="comment-title" class="form-label">Заголовок комментария</label>
-                            <input type="text" class="form-control" id="comment-title" name="comment-title" v-model="title">
-                        </div>
-                        <div class="mb-3">
-                            <label for="comment-text" class="form-label">Текст комментария</label>
-                            <textarea class="form-control" id="comment-text" name="comment-text" rows="5" v-model="comment"></textarea>
-                        </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" v-model="email"
+                            :class="{ 'is-invalid': errors.email }" />
+                        <div class="invalid-feedback">{{ errors.email }}</div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Отправить</button>
-            </form>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="comment-title" class="form-label">Заголовок комментария</label>
+                        <input type="text" class="form-control" id="comment-title" name="comment-title" v-model="title"
+                            :class="{ 'is-invalid': errors.title }" />
+                        <div class="invalid-feedback">{{ errors.title }}</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comment-text" class="form-label">Текст комментария</label>
+                        <textarea class="form-control" id="comment-text" name="comment-text" rows="5" v-model="comment"
+                            :class="{ 'is-invalid': errors.comment }"></textarea>
+                        <div class="invalid-feedback">{{ errors.comment }}</div>
+                    </div>
+                </div>
+            </div>
+            <button 
+                class="btn btn-primary"
+                @click="fnSubmitComment"
+            >Отправить</button>
         </div>
 
         <footer>

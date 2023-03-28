@@ -7,12 +7,8 @@ var app = new Vue({
         email: "",
         title: "",
         comment: "",
-        // comment_form: {
-        //     username: "",
-        //     email: "",
-        //     title: "",
-        //     comment: "",
-        // }
+        error: "",
+        errors: {}
     },
     methods: {
         async fnPostComment(form) {
@@ -36,11 +32,51 @@ var app = new Vue({
             .then(response => response.json())
             .catch(error => console.error(error))
         },
-        fnSubmitComment() {
+        async fnSubmitComment() {
+            this.errors = {};
 
+            if (!this.username) {
+                this.errors.username = 'Пожалуйста, введите имя';
+            }
+
+            if (!this.email) {
+                this.errors.email = 'Пожалуйста, введите email';
+            } else if (!this.fnValidEmail(this.email)) {
+                this.errors.email = 'Пожалуйста, введите корректный email';
+            }
+
+            if (!this.title) {
+                this.errors.title = 'Пожалуйста, введите заголовок';
+            }
+
+            if (!this.comment) {
+                this.errors.comment = 'Пожалуйста, введите сообщение';
+            }
+
+            if (Object.keys(this.errors).length != 0) {
+                return;
+            }
+            
+            this.error = ""
+            var form = {
+                username: this.username,
+                email: this.email,
+                title: this.title,
+                comment: this.comment,
+            }
+            var resp = await this.fnPostComment(form)
+            if (resp.code=="error") {
+                this.error = resp.message
+            } else {
+                this.comments.push(resp.fields)
+                this.username = ""
+                this.email = ""
+                this.title = ""
+                this.comment = ""
+            }
         },
-        fnUpdate() {
-
+        fnValidEmail(sEmail) {
+            return /\S+@\S+\.\S+/.test(sEmail);
         }
     },
     async mounted() {

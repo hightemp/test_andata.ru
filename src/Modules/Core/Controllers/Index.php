@@ -21,10 +21,11 @@ class Index extends BaseController
     {
         $oService = new CommentsService();
         try {
-            $oService->fnSaveComment($this->oRequest->aPost);
+            $aSavedFields = $oService->fnSaveComment($this->oRequest->fnGetInputAsJSON());
             return [
                 "code" => "success",
-                "message" => "Комментарий сохранен"
+                "message" => "Комментарий сохранен",
+                "fields" => $aSavedFields
             ];
         } catch (\Exception $oE) {
             return [
