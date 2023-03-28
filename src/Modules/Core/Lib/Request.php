@@ -8,35 +8,35 @@ class Request
 {
     const INPUT = "php://input";
 
-    public $iTimestamp = 0;
+    public int $iTimestamp = 0;
     
-    public $aRequest = [];
-    public $aGet = [];
-    public $aPost = [];
-    public $aFiles = [];
-    public $aCookie = [];
-    public $aServer = [];
-    public $aSession = [];
-    public $sInput = "";
+    public ?array $aRequest = [];
+    public ?array $aGet = [];
+    public ?array $aPost = [];
+    public ?array $aFiles = [];
+    public ?array $aCookie = [];
+    public ?array $aServer = [];
+    public ?array $aSession = [];
+    public ?string $sInput = "";
 
     /** @var Url $oCurrentURL */
-    public $oCurrentURL = null;
+    public ?Url $oCurrentURL = null;
     /** @var Url $oBaseURL */
-    public $oBaseURL = null;
+    public ?Url $oBaseURL = null;
 
-    public static $sCurrentAlias = "";
-    public static $sCurrentModuleClass = "";
-    public static $sCurrentControllerClass = "";
-    public static $sCurrentMethod = "";
+    public static string $sCurrentAlias = "";
+    public static string $sCurrentModuleClass = "";
+    public static string $sCurrentControllerClass = "";
+    public static string $sCurrentMethod = "";
 
     public function __construct(
-        &$aRequest=[],
-        &$aGet=[], 
-        &$aPost=[], 
-        &$aFiles=[],
-        &$aCookie=[],
-        &$aServer=[],
-        &$aSession=[]
+        mixed &$aRequest=[],
+        mixed &$aGet=[], 
+        mixed &$aPost=[], 
+        mixed &$aFiles=[],
+        mixed &$aCookie=[],
+        mixed &$aServer=[],
+        mixed &$aSession=[]
     )
     {
         $this->iTimestamp = time();
@@ -57,12 +57,12 @@ class Request
         $this->oBaseURL->setQuery("");
     }
 
-    public function fnCopyURL($oURL)
+    public function fnCopyURL(Url $oURL)
     {
         return Url::createFromUrl((string) $oURL);
     }
 
-    public function fnPrepareURL($sPath, $aArgs=[], $bAddCurrentURL=false)
+    public function fnPrepareURL(string $sPath, array $aArgs=[], bool $bAddCurrentURL=false)
     {
         $oURL = $this->fnCopyURL($this->oBaseURL);
         $oURL->setPath($sPath);
@@ -73,7 +73,7 @@ class Request
         return $oURL;
     }
 
-    public function fnPrepareURLFromCurrent($aArgs=[], $bAddCurrentURL=false)
+    public function fnPrepareURLFromCurrent(array $aArgs=[], bool $bAddCurrentURL=false)
     {
         $oURL = $this->fnCopyURL($this->oCurrentURL);
         $oQuery = $oURL->getQuery();
@@ -85,14 +85,14 @@ class Request
         return $oURL;
     }
 
-    public function fnGetCurrentURL()
+    public function fnGetCurrentURL(): string
     {
         $sURL = (isset($this->aServer['HTTPS']) && $this->aServer['HTTPS'] === 'on' ? "https" : "http");
         $sURL .= "://".$this->aServer['HTTP_HOST'].$this->aServer['REQUEST_URI'];
         return $sURL;
     }
 
-    public static function fnBuild()
+    public static function fnBuild(): Request
     {
         return new static(
             $_REQUEST,
@@ -105,12 +105,12 @@ class Request
         );
     }
 
-    public function fnGetInput()
+    public function fnGetInput(): string
     {
         return $this->sInput = ($this->sInput ?: file_get_contents(static::INPUT));
     }
 
-    public function fnGetInputAsJSON()
+    public function fnGetInputAsJSON(): array
     {
         return json_decode($this->sInput, true);
     }

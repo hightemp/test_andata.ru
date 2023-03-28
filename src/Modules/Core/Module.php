@@ -6,15 +6,11 @@ class Module
 {
     const NAME = "Core";
 
-    public static $sDefaultController = \Hightemp\AndataRu\Modules\Core\Controllers\Index::class;
-    public static $sDefaultMethod = "fnIndexHTML";
+    public static string $sDefaultController = \Hightemp\AndataRu\Modules\Core\Controllers\Index::class;
+    public static string $sDefaultMethod = "fnIndexHTML";
 
-    public static $aControllers = [
+    /** @var array $aControllers список контроллеров для подгрузки */
+    public static array $aControllers = [
         \Hightemp\AndataRu\Modules\Core\Controllers\Index::class
     ];
-
-    public static $aModels = [
-        
-    ];
-
 }

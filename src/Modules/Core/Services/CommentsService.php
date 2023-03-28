@@ -5,8 +5,17 @@ namespace Hightemp\AndataRu\Modules\Core\Services;
 use Hightemp\AndataRu\Modules\Core\Lib\BaseService;
 use Hightemp\AndataRu\Modules\Core\Models\Comments;
 
+/**
+ * Класс сервис для работы с моделью комментариев
+ */
 class CommentsService extends BaseService {
-
+    
+    /**
+     * Метод сохранения комментария
+     *
+     * @param  array $aFields
+     * @return array
+     */
     function fnSaveComment(array $aFields): array {
         if (empty($aFields['username'])) {
             throw new \Exception("Поле username должно быть заполено");
@@ -41,7 +50,12 @@ class CommentsService extends BaseService {
         $oModel = new Comments();
         return $oModel->fnSave($aFields);
     }
-
+    
+    /**
+     * Метод возращает список комментариев
+     *
+     * @return array
+     */
     function fnGetComments(): array {
         $oModel = new Comments();
         return $oModel->fnGetAll();

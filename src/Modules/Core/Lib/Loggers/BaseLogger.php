@@ -12,55 +12,122 @@ class BaseLogger
     const MT_NOTICE = 'notice';
 
     public static $oInstance = null;
-
-    public static function fnBuild()
+    
+    /**
+     * Фабричный метод создание сущности логгера
+     *
+     * @return BaseLogger
+     */
+    public static function fnBuild(): BaseLogger
     {
         return (static::$oInstance = new static());
     }
-
-    public function fnUpdateHeader($aData)
+    
+    /**
+     * Метод заглушка, для обновления заголовка лога
+     *
+     * @param  array $aData
+     * @return void
+     */
+    public function fnUpdateHeader(?array $aData):void
     {
     }
 
-    public function fnWrite($sType, $sMessage, $aData=[])
+    /**
+     * Метод заглушка, для записи в лог
+     *
+     * @param  string $sType
+     * @param  string $sMessage
+     * @param  array $aData
+     * @return void
+     */
+    public function fnWrite(string $sType, string $sMessage, array $aData=[]): void
     {
 
     }
-
-    public function fnWriteMessage($sMessage, $aData=[])
+    
+    /**
+     * Метод записи сообщения
+     *
+     * @param  string $sMessage
+     * @param  array $aData
+     * @return void
+     */
+    public function fnWriteMessage(string $sMessage, array $aData=[]): void
     {
         $this->fnWrite(static::MT_MESSAGE, $sMessage, $aData);
     }
-
-    public function fnWriteError($sMessage, $aData=[])
+    
+    /**
+     * Метод записи ошибки
+     *
+     * @param  string $sMessage
+     * @param  array $aData
+     * @return void
+     */
+    public function fnWriteError(string $sMessage, array $aData=[]): void
     {
         $this->fnWrite(static::MT_ERROR, $sMessage, $aData);
     }
-
-    public function fnWriteWarning($sMessage, $aData=[])
+    
+    /**
+     * Метод записи сообщения
+     *
+     * @param  string $sMessage
+     * @param  array $aData
+     * @return void
+     */
+    public function fnWriteWarning(string $sMessage, array $aData=[]): void
     {
         $this->fnWrite(static::MT_WARNING, $sMessage, $aData);
     }
-
-    public function fnWriteInfo($sMessage, $aData=[])
+    
+    /**
+     * Метод записи сообщения
+     *
+     * @param  string $sMessage
+     * @param  array $aData
+     * @return void
+     */
+    public function fnWriteInfo(string $sMessage, array $aData=[]): void
     {
         $this->fnWrite(static::MT_INFO, $sMessage, $aData);
     }
-
-    public function fnRemoveOld()
+    
+    /**
+     * Метод заглушка, удаление старых сообщений
+     *
+     * @return void
+     */
+    public function fnRemoveOld(): void
     {
     }
-
-    public function fnClean()
+    
+    /**
+     * Метод заглушка, очистить старые сообщения
+     *
+     * @return void
+     */
+    public function fnClean(): void
     {
     }
-
-    public function fnGetMicrotime()
+    
+    /**
+     * Метод для получения времени
+     *
+     * @return float
+     */
+    public function fnGetMicrotime(): float
     {
         return microtime(true);
     }
-
-    public function fnGetCurrentDate()
+    
+    /**
+     * Метод для получения даты
+     *
+     * @return string
+     */
+    public function fnGetCurrentDate(): string
     {
         return date("Y-m-d H:i:s");
     }

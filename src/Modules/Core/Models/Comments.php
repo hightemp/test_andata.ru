@@ -21,7 +21,12 @@ class Comments extends BaseModel {
         R::store($oComment);
         return $aFields;
     }
-
+    
+    /**
+     * Метод возвращает список комментариев
+     *
+     * @return array
+     */
     function fnGetAll(): array {
         $aRows = R::findAll('comments');
         if (!$aRows) return [];
