@@ -7,12 +7,9 @@ use RedBeanPHP\Facade as R;
 
 class BaseProject 
 {
-    public static $sProjectClassPath = __NAMESPACE__;
-    public static $sProjectRootPath = __DIR__;
+    public static array $mShutdownFunction = [self::class,'fnShutdownFunction'];
 
-    public static $mShutdownFunction = [self::class,'fnShutdownFunction'];
-
-    public static $aLoggers = [
+    public static array $aLoggers = [
 
     ];
 
@@ -30,19 +27,19 @@ class BaseProject
      * ]
      * ```
      * */
-    public static $aPreload = [
+    public static array $aPreload = [
     ];
 
-    public static $aModules = [
+    public static array $aModules = [
     ];
 
-    public static $aControllers = [
+    public static array $aControllers = [
     ];
 
-    public static $aPreloadViews = [
+    public static array $aPreloadViews = [
     ];
 
-    public static function fnInit()
+    public static function fnInit(): void
     {
         static::fnPreload();
         static::fnInitLogger();
@@ -53,18 +50,23 @@ class BaseProject
         static::fnRegisterShutdownFunction();
     }
 
-    public static function fnInitLogger()
+    public static function fnInitLogger(): void
     {
         Logger::fnInit();
     }
 
-    public static function fnInitDatabase()
+    public static function fnInitDatabase(): void
     {
         R::setup('sqlite:'.DB_PATH.'/db.db');
         if(!R::testConnection()) throw new \Exception("<h1>No db connection</h1>");
     }
-
-    public static function fnRegisterShutdownFunction()
+    
+    /**
+     * Метод завершения
+     *
+     * @return void
+     */
+    public static function fnRegisterShutdownFunction(): void
     {
         register_shutdown_function(static::$mShutdownFunction);
     }
@@ -74,7 +76,7 @@ class BaseProject
      *
      * @return void
      */
-    public static function fnPreload()
+    public static function fnPreload(): void
     {
         foreach (static::$aPreload as $mElement) {
             if (is_string($mElement)) {
@@ -89,7 +91,7 @@ class BaseProject
         }
     }
 
-    public static function fnPreloadModule($sClass)
+    public static function fnPreloadModule($sClass): void
     {
         static::$aModules = array_merge(static::$aModules, (array) $sClass);
         static::$aControllers = array_merge(static::$aControllers, (array) $sClass::$aControllers);
@@ -98,7 +100,7 @@ class BaseProject
         static::$aControllers = array_unique(static::$aControllers);
     }
 
-    public static function fnShutdownFunction()
+    public static function fnShutdownFunction(): void
     {
         Logger::fnWriteMessage("==SHUTDOWN==");
     }

@@ -6,18 +6,15 @@ use Hightemp\AndataRu\Modules\Core\Lib\BaseProject;
 
 class Project extends BaseProject
 {
-    public static $sProjectClassPath = __NAMESPACE__;
-    public static $sProjectRootPath = __DIR__;
-
-    public static $aLoggers = [
+    public static array $aLoggers = [
         \Hightemp\AndataRu\Modules\Core\Lib\Loggers\SimpleJSONLLogger::class
     ];
 
-    public static $aPreload = [
+    public static array $aPreload = [
         \Hightemp\AndataRu\Modules\Core\Module::class,
     ];
 
-    public static $aModules = [
+    public static array $aModules = [
         \Hightemp\AndataRu\Modules\Core\Module::class,
     ];
 }

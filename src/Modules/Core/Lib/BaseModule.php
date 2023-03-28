@@ -10,19 +10,13 @@ class BaseModule
     const VERSION = "1.0.0";
 
     /** @var string|BaseController Дефолтный контроллер */
-    public static $sDefaultController = null;
+    public static ?string $sDefaultController = null;
     /** @var string Дефолтный метод */
-    public static $sDefaultMethod = null;
+    public static ?string $sDefaultMethod = null;
 
     /** @var string[]|BaseController[] Список контроллеров */
-    public static $aControllers = [];
+    public static array $aControllers = [];
 
     /** @var string[]|View[] Загрузка переменных и доп. html */
-    public static $aPreloadViews = [];
-
-    /** @var string[]|BaseModel[] $aModels Список моделей */
-    public static $aModels = [];
-
-    /** @var string[]|BaseMiddleware[] $aMiddlewares Прослойка для выполнения кода */
-    public static $aMiddlewares = [];
+    public static array $aPreloadViews = [];
 }
