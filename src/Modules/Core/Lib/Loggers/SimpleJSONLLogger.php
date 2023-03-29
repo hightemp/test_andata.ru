@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Hightemp\AndataRu\Modules\Core\Lib\Loggers;
 
@@ -165,7 +166,7 @@ class SimpleJSONLLogger extends BaseLogger
     public function fnWrite(string $sType, string $sMessage, array $aData=[]): void
     {
         $this->fnUpdateHeaderByRequest();
-        $sJSON = static::fnPrepareData($sType, $this->fnGetMicrotime(), $this->fnGetCurrentDate(), $sMessage, $aData);
+        $sJSON = static::fnPrepareData($sType, (string) $this->fnGetMicrotime(), $this->fnGetCurrentDate(), $sMessage, $aData);
         file_put_contents($this->sLoggerFilePath, $sJSON, FILE_APPEND);
     }
 

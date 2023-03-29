@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Hightemp\AndataRu\Modules\Core\Lib\Controllers\BaseController;
 use Hightemp\AndataRu\Modules\Core\Lib\Request;
